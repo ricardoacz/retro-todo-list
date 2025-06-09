@@ -49,15 +49,18 @@ export const updateUser = async (req, res) => {
     const updatedUser = {}
 
     if (req.body.name !== undefined) updatedUser.name = req.body.name
-    if (req.body.nickname !== undefined) updatedUser.name = req.body.nickname
-    if (req.body.email !== undefined) updatedUser.name = req.body.email
+    if (req.body.nickname !== undefined) updatedUser.nickname = req.body.nickname
+    if (req.body.email !== undefined) updatedUser.email = req.body.email
     if (req.body.ui_theme !== undefined) updatedUser.ui_theme = req.body.ui_theme
+
+    console.log(updatedUser)
 
     try {
         const response = await databases.updateDocument(
             process.env.DB,
             process.env.APPWRITE_COLLECTION_USERS,
             id,
+            updatedUser
         )
 
         res.status(200).json({success: true, response})
