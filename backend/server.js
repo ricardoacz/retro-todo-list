@@ -7,8 +7,9 @@ dotenv.config()
 const PORT = process.env.PORT || 5000
 
 const app = express()
+app.use(express.json())
 
-app.use('/', todoRoutes)
+app.use('/api', todoRoutes)
 
 app.listen(PORT, () => {
     console.log(`Your server is running on port ${PORT}, you better catch it!`)
