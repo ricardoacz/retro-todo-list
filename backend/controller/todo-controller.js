@@ -41,24 +41,48 @@ export const createTodo = async (req, res) => {
 }
 
 export const updateTodo = async (req, res) => {
-    res.send('Todos would be here')
+    console.log('update todo starts')
+    const id = req.params.id
+    console.log(id, req.body)
+    const updatedTodo = {}
+
+    if (req.body.todo !== undefined) updatedTodo.todo = req.body.todo
+    if (req.body.completed !== undefined) updatedTodo.completed = req.body.completed
+    if (req.body.important !== undefined) updatedTodo.important = req.body.important
+
+    
+    console.log(updatedTodo)
+
+    try {
+        const response = await databases.getDocument(
+            process.env.DB,
+            process.env.APPWRITE_COLLECTION_TODOS,
+            id,
+            []
+        )
+
+        console.log("Document exists")
+    } catch (error) {
+        console.error(error)
+        res.status(404).json({success: false, message: "Not found"})
+    }
+
+    try {
+        const response = await databases.updateDocument(
+            process.env.DB,
+            process.env.APPWRITE_COLLECTION_TODOS,
+            id,
+            updatedTodo
+        )
+
+        res.status(200).json({success: true, response})
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({success: false, message: "Server error"})
+    }
 }
 
-export const markTodoDone = async (req, res) => {
-    res.send('Todos would be here')
-}
 
-export const unmarkTodoDone = async (req, res) => {
-    res.send('Todos would be here')
-}
-
-export const markTodoImportant = async (req, res) => {
-    res.send('Todos would be here')
-}
-
-export const unmarkTodoImportant = async (req, res) => {
-    res.send('Todos would be here')
-}
 
 export const deleteTodo = async (req, res) => {
     res.send('Todos would be here')
