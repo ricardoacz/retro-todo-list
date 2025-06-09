@@ -29,13 +29,57 @@ export const createUser = async (req, res) => {
                 name: newUser.name,
                 email: newUser.email,
                 nickname: newUser.nickname,
-                todos_completed: 0,
                 ui_theme: 'light-mode',
                 userId: newUser.userId,
             }
         )
 
         res.status(201).json({success: true, response})
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({success: false, message: "Server error"})
+    }
+}
+
+export const updateUser = async (req, res) => {
+    console.log('update user starts')
+    const id = req.params.id
+    console.log(id, req.body)
+
+    const updatedUser = {}
+
+    if (req.body.name !== undefined) updatedUser.name = req.body.name
+    if (req.body.nickname !== undefined) updatedUser.name = req.body.nickname
+    if (req.body.email !== undefined) updatedUser.name = req.body.email
+    if (req.body.ui_theme !== undefined) updatedUser.ui_theme = req.body.ui_theme
+
+    try {
+        const response = await databases.updateDocument(
+            process.env.DB,
+            process.env.APPWRITE_COLLECTION_USERS,
+            id,
+        )
+
+        res.status(200).json({success: true, response})
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({success: false, message: "Server error"})
+    }
+}
+
+export const deleteUser = async (req, res) => {
+    console.log('delete start starts')
+    const id = req.params.id
+    console.log(id)
+
+    try {
+        const response = await databases.deleteDocument(
+            process.env.DB,
+            process.env.APPWRITE_COLLECTION_USERS,
+            id,
+        )
+
+        res.status(200).json({success: true, response})
     } catch (error) {
         console.error(error)
         res.status(500).json({success: false, message: "Server error"})
