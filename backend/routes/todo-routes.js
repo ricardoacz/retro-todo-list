@@ -9,7 +9,6 @@ router.post('/', createTodo)
 
 router.patch('/:id', updateTodo)
 
-
 router.delete('/:id', deleteTodo)
 
 export default router

@@ -53,19 +53,19 @@ export const updateTodo = async (req, res) => {
     
     console.log(updatedTodo)
 
-    try {
-        const response = await databases.getDocument(
-            process.env.DB,
-            process.env.APPWRITE_COLLECTION_TODOS,
-            id,
-            []
-        )
+    // try {
+    //     const response = await databases.getDocument(
+    //         process.env.DB,
+    //         process.env.APPWRITE_COLLECTION_TODOS,
+    //         id,
+    //         []
+    //     )
 
-        console.log("Document exists")
-    } catch (error) {
-        console.error(error)
-        res.status(404).json({success: false, message: "Not found"})
-    }
+    //     console.log("Document exists")
+    // } catch (error) {
+    //     console.error(error)
+    //     res.status(404).json({success: false, message: "Not found"})
+    // }
 
     try {
         const response = await databases.updateDocument(
@@ -82,9 +82,21 @@ export const updateTodo = async (req, res) => {
     }
 }
 
-
-
 export const deleteTodo = async (req, res) => {
-    res.send('Todos would be here')
-}
+    console.log('delete todo starts')
+    const id = req.params.id
+    console.log(id, req.body)
 
+    try {
+        const response = await databases.deleteDocument(
+            process.env.DB,
+            process.env.APPWRITE_COLLECTION_TODOS,
+            id,
+        )
+
+        res.status(200).json({success: true, response})
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({success: false, message: "Server error"})
+    }
+}
