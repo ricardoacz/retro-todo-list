@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react'
 import { useNavigate } from 'react-router-dom'
 import {useAuth} from '../global_state/authStore'
+import { useTodoStore } from '../global_state/todoStore'
 import { account } from '../appwriteConfig'
 
 import Todo from '../components/Todo'
@@ -11,6 +12,8 @@ function HomePage() {
     const [user, setUser] = useState("")
     const [typingMode, setTypingMode] = useState(false)
     const [todoValue, setTodoValue] = useState("")
+
+    const {getTodos} = useTodoStore()
     
     const navigate = useNavigate()
 
@@ -24,11 +27,13 @@ function HomePage() {
                 console.log(session)
                 setUser(session.name)
                 
+                
             } catch (error) {
                 navigate('/login')
             }  
         }
         checkUserSession()
+        getTodos()
     }, [])
 
     const testData = [

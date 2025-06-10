@@ -2,6 +2,7 @@ import { client, databases, account } from '../config/appwrite.js'
 import { ID, Query } from 'node-appwrite'
 
 export const getTodos = async (req, res) => {
+    console.log('Start getting todos', req.query.userId)
     try {
         const response = await databases.listDocuments(
             process.env.DB,
