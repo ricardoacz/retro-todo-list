@@ -80,7 +80,7 @@ const Register = () => {
               <input 
                 required
                 type="text" 
-                name="Nickname"
+                name="nickname"
                 placeholder="Enter email..."
                 />
           </div>

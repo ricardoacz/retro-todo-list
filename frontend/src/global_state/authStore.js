@@ -23,10 +23,13 @@ export const useAuth = create((set) => ({
     registerUser: async (userInfo) => {
         set({ loading: true })
         let accountDetails = null
+        const userIdUnique = ID.unique()
+        userInfo.userId = userIdUnique
 
+        // Create user account
         try {
             await account.create(
-                ID.unique(),
+                userInfo.userId,
                 userInfo.email,
                 userInfo.password1,
                 userInfo.name,
@@ -35,7 +38,20 @@ export const useAuth = create((set) => ({
         } catch (error) {
             console.error(error)
         }
+        // Create user document
+        try {
+            const response = fetch('/api/user', {
+                method: 'POST',
+                headers: {"Content-Type": 'application/json'},
+                body: JSON.stringify(userInfo)
+            })
+            const data = await response.json()
+            console.log("User document created")
+        } catch (error) {
+            console.error(error)
+        }
 
+        // Log in
         try {
             await account.createEmailPasswordSession(userInfo.email, userInfo.password1)
             accountDetails = await account.get()
@@ -49,6 +65,7 @@ export const useAuth = create((set) => ({
 
     logoutUser: async () => {
         await account.deleteSessions()
+        location.reload()
         set({ user: null })
     },
 
