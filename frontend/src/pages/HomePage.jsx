@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import { useNavigate } from 'react-router-dom'
 import {useAuth} from '../global_state/authStore'
 import { account } from '../appwriteConfig'
@@ -13,6 +13,8 @@ function HomePage() {
     const [todoValue, setTodoValue] = useState("")
     
     const navigate = useNavigate()
+
+    const textareaRef = useRef(null)
 
     useEffect(() => {
         const checkUserSession = async () => {
@@ -84,6 +86,29 @@ function HomePage() {
         setTodoValue("")
     }
 
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === '`') {
+                e.preventDefault() 
+                console.log(`you pressed ${e.key}`)
+                setTypingMode((prev) => !prev)
+                // window.removeEventListener('keydown', handleKeyDown)
+            }
+        }
+        window.addEventListener('keydown', handleKeyDown)
+        
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown)
+        }
+    }, [])
+
+    useEffect(() => {
+        if (typingMode && textareaRef.current) {
+            textareaRef.current.focus()
+        }
+    }, [typingMode])
+
     return (
         <div>
             {user && (
@@ -92,7 +117,7 @@ function HomePage() {
                 
                 <button onClick={logoutUser}>Logout</button>
                 <button>Light Mode</button>
-                <button>Settings</button>
+                <button onClick={() => navigate('/settings')}>Settings</button>
                 <button onClick={() => setTypingMode(!typingMode)}>Type|Todo</button>
                 <h1>{`Welcome ${user}`}</h1>
 
@@ -113,6 +138,7 @@ function HomePage() {
                     <div>
                         <form onSubmit={handleAddTodo}>
                             <textarea 
+                                ref={textareaRef}
                                 maxLength={60} 
                                 className='text-box' 
                                 onChange={(e) => setTodoValue(e.target.value)}
