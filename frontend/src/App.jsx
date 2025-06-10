@@ -6,24 +6,38 @@ import Login from './pages/login'
 import Register from './pages/register'
 import Settings from './pages/Settings'
 
+import LayoutComponent from './components/LayoutComponent'
+import NotFoundPage from './components/NotFoundPage'
+
 function App() {
   
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <HomePage />
-    },
-    {
-      path: '/login',
-      element: <Login />
-    },
-    {
-      path: '/register',
-      element: <Register />
-    },
-    {
-      path: '/settings',
-      element: <Settings />
+      element: <LayoutComponent />,
+      errorElement: <NotFoundPage />,
+      children: [
+        {
+          index: true,
+          element: <HomePage />
+        },
+        {
+          path: '/',
+          element: <HomePage />
+        },
+        {
+          path: '/login',
+          element: <Login />
+        },
+        {
+          path: '/register',
+          element: <Register />
+        },
+        {
+          path: '/settings',
+          element: <Settings />
+        }
+      ]
     }
   ])
 

@@ -20,6 +20,32 @@ export const useAuth = create((set) => ({
         return accountDetails
     },
 
+    registerUser: async (userInfo) => {
+        set({ loading: true })
+        let accountDetails = null
+
+        try {
+            await account.create(
+                ID.unique(),
+                userInfo.email,
+                userInfo.password1,
+                userInfo.name
+            )
+        } catch (error) {
+            console.error(error)
+        }
+
+        try {
+            await account.createEmailPasswordSession(userInfo.email, userInfo.password1)
+            accountDetails = await account.get()
+            set({ user: accountDetails })
+        } catch (error) {
+            console.error(error)
+        }
+        set({ loading: false })
+        return accountDetails
+    },
+
     logoutUser: async () => {
         await account.deleteSessions()
         set({ user: null })
