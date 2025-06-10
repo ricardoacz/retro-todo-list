@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../global_state/authStore'
 
 const Login = () => {
@@ -63,6 +63,7 @@ const Login = () => {
                     </div>
                 </form>
             </div>
+             <p>Don't have an account? <Link to="/register">Register</Link></p>
         </div>
     )
 }
