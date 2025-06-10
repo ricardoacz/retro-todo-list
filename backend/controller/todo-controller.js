@@ -7,7 +7,9 @@ export const getTodos = async (req, res) => {
         const response = await databases.listDocuments(
             process.env.DB,
             process.env.APPWRITE_COLLECTION_TODOS,
-            []
+            [
+                Query.equal('user', [req.query.userId])
+            ]
         )
         res.status(200).json({success: true, response})
     } catch (error) {

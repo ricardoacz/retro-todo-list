@@ -33,7 +33,7 @@ function HomePage() {
             }  
         }
         checkUserSession()
-        // getTodos()
+        getTodos()
     }, [])
 
     const testData = [

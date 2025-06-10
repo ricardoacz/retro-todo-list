@@ -24,13 +24,13 @@ export const createUser = async (req, res) => {
         const response = await databases.createDocument(
             process.env.DB,
             process.env.APPWRITE_COLLECTION_USERS,
-            ID.unique(),
+            newUser.userId,
             {
                 name: newUser.name,
                 email: newUser.email,
                 nickname: newUser.nickname,
                 ui_theme: 'light-mode',
-                userId: newUser.userId,
+                // userId: newUser.userId,
             }
         )
 
