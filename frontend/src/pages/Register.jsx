@@ -16,6 +16,7 @@ const Register = () => {
 
         const name = registerForm.current.name.value
         const email = registerForm.current.email.value
+        const nickname = registerForm.current.nickname.value
         const password1 = registerForm.current.password1.value
         const password2 = registerForm.current.password2.value
 
@@ -24,7 +25,7 @@ const Register = () => {
             return 
         }
         
-        const userInfo = {name, email, password1, password2}
+        const userInfo = {name, email, nickname, password1, password2}
 
         const {success} = await registerUser(userInfo)
         if (success) {
@@ -70,6 +71,16 @@ const Register = () => {
                 required
                 type="email" 
                 name="email"
+                placeholder="Enter email..."
+                />
+          </div>
+
+           <div className="form-field-wrapper">
+              <label>Nickname:</label>
+              <input 
+                required
+                type="text" 
+                name="Nickname"
                 placeholder="Enter email..."
                 />
           </div>

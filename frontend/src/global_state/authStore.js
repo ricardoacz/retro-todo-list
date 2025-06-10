@@ -29,7 +29,8 @@ export const useAuth = create((set) => ({
                 ID.unique(),
                 userInfo.email,
                 userInfo.password1,
-                userInfo.name
+                userInfo.name,
+                userInfo.nickname
             )
         } catch (error) {
             console.error(error)
