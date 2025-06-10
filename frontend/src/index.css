@@ -73,3 +73,10 @@ html {
   background-color: #242424;
   font-family: 'Press Start 2P', Arial, Helvetica, sans-serif;
 }
+
+.todo-input {
+  border: green solid 3px;
+  width: 80%;
+  font-size: 2.5rem;
+  font-family: 'Press Start 2P', Arial, Helvetica, sans-serif;
+}

@@ -7,26 +7,11 @@ import Todo from '../components/Todo'
 
 function HomePage() {
     
-    const {logoutUser, checkUserStatus, loading, user} = useAuth()
-
+    const {logoutUser, checkUserStatus} = useAuth()
+    const [user, setUser] = useState("")
     const [todoValue, setTodoValue] = useState("")
     
     const navigate = useNavigate()
-
-    // // Trigger check user logged in
-    // useEffect(() => {
-    //     const check = async () => {
-    //     await checkUserStatus()
-    //     }
-    //     check()
-    // }, [])
-
-    // // Comfirm user is logged in and redirect
-    // useEffect(() => {
-    //     if (loading === false && user === null) {
-    //     navigate('/login')
-    //     }
-    // }, [loading, user])
 
     useEffect(() => {
         const checkUserSession = async () => {
@@ -34,6 +19,7 @@ function HomePage() {
             try {
                 session = await account.get()
                 console.log(session)
+                setUser(session.name)
                 
             } catch (error) {
                 navigate('/login')
@@ -98,20 +84,34 @@ function HomePage() {
 
     return (
         <div>
-            <button onClick={logoutUser}>Logout</button>
-            <button>Light Mode</button>
-            <h1>Welcome Nickname</h1>
+            {user && (
+
             <div>
-                <form onSubmit={handleAddTodo}>
-                    <input onChange={(e) => setTodoValue(e.target.value)} placeholder='todo' />
-                    <button>Submit</button>
-                </form>
+                
+                <button onClick={logoutUser}>Logout</button>
+                <button>Light Mode</button>
+                <button>Settings</button>
+                <button>Type</button>
+                <h1>{`Welcome ${user}`}</h1>
+                <div>
+                    {todos.map((todo, index) => (
+                        <Todo key={index} todo={todo} />
+                    ))}
+                </div>
+
+                <div>
+                    <p>Typing interface</p>
+                    <div>
+                        <form onSubmit={handleAddTodo}>
+                            <input className='todo-input' onChange={(e) => setTodoValue(e.target.value)} placeholder='todo' />
+                            <button>Submit</button>
+                        </form>
+                    </div>
+                </div>
+
             </div>
-            <div>
-                {todos.map((todo, index) => (
-                    <Todo key={index} todo={todo} />
-                ))}
-            </div>
+
+            )}
         </div>
     )
 }
