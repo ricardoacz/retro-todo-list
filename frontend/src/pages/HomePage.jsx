@@ -9,6 +9,7 @@ function HomePage() {
     
     const {logoutUser, checkUserStatus} = useAuth()
     const [user, setUser] = useState("")
+    const [typingMode, setTypingMode] = useState(false)
     const [todoValue, setTodoValue] = useState("")
     
     const navigate = useNavigate()
@@ -80,6 +81,7 @@ function HomePage() {
         }
         const copyTodos = todos.slice()
         setTodos([...copyTodos, {...todoTemplate, todo: todoValue}])
+        setTodoValue("")
     }
 
     return (
@@ -91,23 +93,44 @@ function HomePage() {
                 <button onClick={logoutUser}>Logout</button>
                 <button>Light Mode</button>
                 <button>Settings</button>
-                <button>Type</button>
+                <button onClick={() => setTypingMode(!typingMode)}>Type|Todo</button>
                 <h1>{`Welcome ${user}`}</h1>
+
+                {!typingMode && (
+
                 <div>
                     {todos.map((todo, index) => (
                         <Todo key={index} todo={todo} />
                     ))}
                 </div>
 
+                )}
+
+                {typingMode && (
+
                 <div>
                     <p>Typing interface</p>
                     <div>
                         <form onSubmit={handleAddTodo}>
-                            <input className='todo-input' onChange={(e) => setTodoValue(e.target.value)} placeholder='todo' />
-                            <button>Submit</button>
+                            <textarea 
+                                maxLength={60} 
+                                className='text-box' 
+                                onChange={(e) => setTodoValue(e.target.value)}
+                                value={todoValue}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault()
+                                        handleAddTodo(e)
+                                    }
+                                }}
+                            ></textarea>
+                            <button type='submit'>Submit</button>
                         </form>
                     </div>
                 </div>
+
+                )}
+
 
             </div>
 

@@ -9,6 +9,7 @@ function Todo({todo}) {
             <p>{todo.todo}</p>
             <button>✅</button>
             <button>⭐</button>
+            <button>🗑️</button>
         </div>
     )
 }
