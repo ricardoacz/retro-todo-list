@@ -5,9 +5,11 @@ import {useAuth} from '../global_state/authStore'
 import Todo from '../components/Todo'
 
 function HomePage() {
-
+    
     const {logoutUser, checkUserStatus, loading, user} = useAuth()
 
+    
+    
     const navigate = useNavigate()
 
     // Trigger check user logged in
@@ -52,8 +54,8 @@ function HomePage() {
             <button>Light Mode</button>
             <h1>Welcome Nickname</h1>
             <div>
-                {testData.map((todo) => (
-                    <Todo todo={todo} />
+                {testData.map((todo, index) => (
+                    <Todo key={index} todo={todo} />
                 ))}
             </div>
         </div>
