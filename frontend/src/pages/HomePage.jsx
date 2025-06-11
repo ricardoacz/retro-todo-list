@@ -13,7 +13,7 @@ function HomePage() {
     const [typingMode, setTypingMode] = useState(false)
     const [todoValue, setTodoValue] = useState("")
 
-    const {todos, getTodos, createTodo} = useTodoStore()
+    const {todos, getTodos, createTodo, updateTodo} = useTodoStore()
 
     useEffect(() => {
         getTodos()
@@ -52,6 +52,10 @@ function HomePage() {
         setTodoValue("")
     }
 
+    const handleMarkTodoDone = async () => {
+
+    }
+
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (e.key === '`') {
@@ -86,6 +90,7 @@ function HomePage() {
                 <button onClick={() => navigate('/settings')}>Settings</button>
                 <button onClick={() => setTypingMode(!typingMode)}>Type|Todo</button>
                 <h1>{`Welcome ${user.name}`}</h1>
+                <button>Todo | Completed</button>
 
                 {!typingMode && (
 

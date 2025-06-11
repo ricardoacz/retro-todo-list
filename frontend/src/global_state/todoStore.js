@@ -4,7 +4,6 @@ import { create } from "zustand";
 
 export const useTodoStore = create((set) => ({
     todos: [],
-    // setTodos: (todos) => set({todos}),
 
     getTodos: async () => {
         console.log("Get todos starts")
@@ -34,6 +33,28 @@ export const useTodoStore = create((set) => ({
             set((state) => ({todos: [...state.todos, data.response]}))
         } catch (error) {
             console.error(error)
+        }
+    },
+
+    updateTodo: async (updatedTodo) => {
+        console.log("Update todo starts", updatedTodo)
+        const user = await account.get()
+        try {
+            const response = await fetch(`api/todo/${updatedTodo.$id}`, {
+                method: "PATCH",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(updatedTodo)
+            })
+            const data = await response.json()
+            console.log(data.response)
+            set((state) => ({
+                todos: state.todos.map((todo) => 
+                    todo.$id === updatedTodo.$id ? data.response : todo
+                )
+            }))
+
+        } catch (error) {
+            
         }
     }
 }))
