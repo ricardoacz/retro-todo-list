@@ -13,10 +13,10 @@ function HomePage() {
     const [typingMode, setTypingMode] = useState(false)
     const [todoValue, setTodoValue] = useState("")
 
-    const {todos} = useTodoStore()
+    const {todos, getTodos, createTodo} = useTodoStore()
 
     useEffect(() => {
-        useTodoStore.getState().getTodos()
+        getTodos()
     }, [])
 
     console.log(todos)
