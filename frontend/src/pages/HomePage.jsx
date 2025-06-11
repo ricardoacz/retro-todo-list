@@ -19,7 +19,7 @@ function HomePage() {
         getTodos()
     }, [])
 
-    console.log(todos)
+    // console.log(todos)
 
     
     const navigate = useNavigate()
