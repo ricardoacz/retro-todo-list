@@ -13,14 +13,14 @@ function HomePage() {
     const [typingMode, setTypingMode] = useState(false)
     const [todoValue, setTodoValue] = useState("")
 
-    const {getTodos, todos, createTodo} = useTodoStore()
+    const {todos} = useTodoStore()
 
     useEffect(() => {
-        getTodos()
-        console.log(todos)
-    }, [getTodos])
+        useTodoStore.getState().getTodos()
+    }, [])
 
-    console.log("todos", todos)
+    console.log(todos)
+
     
     const navigate = useNavigate()
 
@@ -42,47 +42,6 @@ function HomePage() {
         checkUserSession()
     }, [])
 
-    // const testData = [
-    //     {
-    //         todo: 'buy oreos',
-    //         user: 'John',
-    //         important: false,
-    //         completed: false
-    //     },
-    //     {
-    //         todo: 'sell old phone',
-    //         user: 'John',
-    //         important: true,
-    //         completed: false
-    //     },
-    //     {
-    //         todo: 'go out with friends',
-    //         user: 'John',
-    //         important: false,
-    //         completed: true
-    //     }
-    // ]
-
-    // const [todos, setTodos] = useState([
-    //     {
-    //         todo: 'buy oreos',
-    //         user: 'John',
-    //         important: false,
-    //         completed: false
-    //     },
-    //     {
-    //         todo: 'sell old phone',
-    //         user: 'John',
-    //         important: true,
-    //         completed: false
-    //     },
-    //     {
-    //         todo: 'go out with friends',
-    //         user: 'John',
-    //         important: false,
-    //         completed: true
-    //     }
-    // ])
 
     const handleAddTodo = async (e) => {
         e.preventDefault()
@@ -90,8 +49,6 @@ function HomePage() {
             todo: todoValue
         }
         createTodo(newTodo)
-        // const copyTodos = todos.slice()
-        // setTodos([...copyTodos, {...todoTemplate, todo: todoValue}])
         setTodoValue("")
     }
 
@@ -133,6 +90,7 @@ function HomePage() {
                 {!typingMode && (
 
                 <div>
+                   
                     {todos.map((todo, index) => (
                         <Todo key={index} todo={todo} />
                     ))}

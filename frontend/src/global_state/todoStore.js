@@ -4,7 +4,7 @@ import { create } from "zustand";
 
 export const useTodoStore = create((set) => ({
     todos: [],
-    setTodos: (todos) => set({todos}),
+    // setTodos: (todos) => set({todos}),
 
     getTodos: async () => {
         console.log("Get todos starts")
@@ -13,7 +13,7 @@ export const useTodoStore = create((set) => ({
             const response = await fetch(`api/todo?userId=${user.$id}`)
             const data = await response.json()
             console.log(data.response.documents)
-            set((state) => ({todos: [...state.todos, data.response.documents]}))
+            set((state) => ({todos: data.response.documents}))
         } catch (error) {
             console.error(error)
         }
