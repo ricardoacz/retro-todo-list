@@ -54,7 +54,26 @@ export const useTodoStore = create((set) => ({
             }))
 
         } catch (error) {
-            
+            console.error(error)
+        }
+    },
+
+    deleteTodo: async (deletedTodo) => {
+        console.log("Delete todo starts", deletedTodo)
+        const user = await account.get()
+        try {
+            const response = await fetch(`api/todo/${deletedTodo.$id}`, {
+                method: "DELETE",
+            })
+            const data = await response.json()
+            console.log(data.response)
+            set((state) => ({
+                todos: state.todos.filter((todo) => 
+                    todo.$id !== deletedTodo.$id)
+            }))
+
+        } catch (error) {
+            console.error(error)
         }
     }
 }))

@@ -10,6 +10,7 @@ function HomePage() {
     
     const {logoutUser} = useAuth()
     const [user, setUser] = useState({})
+    const [view, setView] = useState(false)
     const [typingMode, setTypingMode] = useState(false)
     const [todoValue, setTodoValue] = useState("")
 
@@ -79,6 +80,10 @@ function HomePage() {
         }
     }, [typingMode])
 
+    function handleTodoView () {
+        setView((prev) => !prev)
+    }
+
     return (
         <div>
             {user && (
@@ -90,15 +95,27 @@ function HomePage() {
                 <button onClick={() => navigate('/settings')}>Settings</button>
                 <button onClick={() => setTypingMode(!typingMode)}>Type|Todo</button>
                 <h1>{`Welcome ${user.name}`}</h1>
-                <button>Todo | Completed</button>
+                <button onClick={handleTodoView}>Todo | Completed</button>
 
                 {!typingMode && (
 
                 <div>
-                   
-                    {todos.map((todo, index) => (
-                        <Todo key={index} todo={todo} />
-                    ))}
+                    {!view ? 
+                        (
+                        <div> 
+                            {todos.filter((todo) => !todo.completed).map((todo, index) => (
+                                <Todo key={index} todo={todo} />
+                            ))}
+                        </div>
+                        )
+                        :
+                        (
+                        <div> 
+                            {todos.filter((todo) => todo.completed).map((todo, index) => (
+                                <Todo key={index} todo={todo} />
+                            ))}
+                        </div>
+                        )}
                 </div>
 
                 )}
