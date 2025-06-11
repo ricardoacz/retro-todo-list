@@ -8,12 +8,19 @@ import Todo from '../components/Todo'
 
 function HomePage() {
     
-    const {logoutUser, checkUserStatus} = useAuth()
-    const [user, setUser] = useState("")
+    const {logoutUser} = useAuth()
+    const [user, setUser] = useState({})
     const [typingMode, setTypingMode] = useState(false)
     const [todoValue, setTodoValue] = useState("")
 
-    const {getTodos} = useTodoStore()
+    const {getTodos, todos, createTodo} = useTodoStore()
+
+    useEffect(() => {
+        getTodos()
+        console.log(todos)
+    }, [getTodos])
+
+    console.log("todos", todos)
     
     const navigate = useNavigate()
 
@@ -25,7 +32,7 @@ function HomePage() {
             try {
                 session = await account.get()
                 console.log(session)
-                setUser(session.name)
+                setUser(session)
                 
                 
             } catch (error) {
@@ -33,61 +40,58 @@ function HomePage() {
             }  
         }
         checkUserSession()
-        getTodos()
     }, [])
 
-    const testData = [
-        {
-            todo: 'buy oreos',
-            user: 'John',
-            important: false,
-            completed: false
-        },
-        {
-            todo: 'sell old phone',
-            user: 'John',
-            important: true,
-            completed: false
-        },
-        {
-            todo: 'go out with friends',
-            user: 'John',
-            important: false,
-            completed: true
-        }
-    ]
+    // const testData = [
+    //     {
+    //         todo: 'buy oreos',
+    //         user: 'John',
+    //         important: false,
+    //         completed: false
+    //     },
+    //     {
+    //         todo: 'sell old phone',
+    //         user: 'John',
+    //         important: true,
+    //         completed: false
+    //     },
+    //     {
+    //         todo: 'go out with friends',
+    //         user: 'John',
+    //         important: false,
+    //         completed: true
+    //     }
+    // ]
 
-    const [todos, setTodos] = useState([
-        {
-            todo: 'buy oreos',
-            user: 'John',
-            important: false,
-            completed: false
-        },
-        {
-            todo: 'sell old phone',
-            user: 'John',
-            important: true,
-            completed: false
-        },
-        {
-            todo: 'go out with friends',
-            user: 'John',
-            important: false,
-            completed: true
-        }
-    ])
+    // const [todos, setTodos] = useState([
+    //     {
+    //         todo: 'buy oreos',
+    //         user: 'John',
+    //         important: false,
+    //         completed: false
+    //     },
+    //     {
+    //         todo: 'sell old phone',
+    //         user: 'John',
+    //         important: true,
+    //         completed: false
+    //     },
+    //     {
+    //         todo: 'go out with friends',
+    //         user: 'John',
+    //         important: false,
+    //         completed: true
+    //     }
+    // ])
 
     const handleAddTodo = async (e) => {
         e.preventDefault()
-        const todoTemplate = {
-            todo: '',
-            user: 'John',
-            important: false,
-            completed: false
+        const newTodo = {
+            todo: todoValue
         }
-        const copyTodos = todos.slice()
-        setTodos([...copyTodos, {...todoTemplate, todo: todoValue}])
+        createTodo(newTodo)
+        // const copyTodos = todos.slice()
+        // setTodos([...copyTodos, {...todoTemplate, todo: todoValue}])
         setTodoValue("")
     }
 
@@ -124,7 +128,7 @@ function HomePage() {
                 <button>Light Mode</button>
                 <button onClick={() => navigate('/settings')}>Settings</button>
                 <button onClick={() => setTypingMode(!typingMode)}>Type|Todo</button>
-                <h1>{`Welcome ${user}`}</h1>
+                <h1>{`Welcome ${user.name}`}</h1>
 
                 {!typingMode && (
 

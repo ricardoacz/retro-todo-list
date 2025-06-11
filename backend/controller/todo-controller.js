@@ -11,6 +11,7 @@ export const getTodos = async (req, res) => {
                 Query.equal('user', [req.query.userId])
             ]
         )
+        console.log(response)
         res.status(200).json({success: true, response})
     } catch (error) {
         console.error(error)
@@ -30,7 +31,7 @@ export const createTodo = async (req, res) => {
             ID.unique(),
             {
                 todo: newTodo.todo,
-                user: newTodo.user,
+                user: newTodo.userId,
                 important: false,
                 completed: false
             }
