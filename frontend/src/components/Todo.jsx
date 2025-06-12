@@ -23,13 +23,21 @@ function Todo({todo}) {
     
 
     return (
-        <div>
-            <p>{todo.todo}</p>
-            <button onClick={handleMarkTodoDone}>{!todo.completed ? '⏹️' : '✅'}</button>
-            <button onClick={handleMarkTodoImportant}>{!todo.important ? '🐢' : '🦖'}</button>
-            <button onClick={handleDeleteTodo}>🗑️</button>
+        <div className='container-todo'>
+            <p>
+            
+            <span onClick={handleMarkTodoDone}>{!todo.completed ? '[ ] ' : '[✓] '}</span>
+                {`${todo.todo} `}
+            
+            {/* <span onClick={handleMarkTodoImportant}>{!todo.important ? '[^]' : '[!]'}</span> */}
+            <span onClick={handleDeleteTodo}>[X]</span>
+            </p>
         </div>
     )
 }
 
 export default Todo
+
+{/* <button onClick={handleMarkTodoDone}>{!todo.completed ? '⏹️' : '✅'}</button>
+            <button onClick={handleMarkTodoImportant}>{!todo.important ? '🐢' : '🦖'}</button>
+            <button onClick={handleDeleteTodo}>🗑️</button> */}

@@ -67,12 +67,27 @@ button:focus-visible {
   }
 } */
 
+* {
+  box-sizing: border-box;
+}
+
 html {
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
   font-family: 'Press Start 2P', Arial, Helvetica, sans-serif;
 }
+
+.container-main {
+  padding: 0 10px;
+}
+
+/* .container-todos {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+} */
+
 
 .text-box {
   border: green solid 3px;
@@ -83,4 +98,17 @@ html {
   color: rgb(24, 44, 31);
   background-color: #4a5749;
   text-wrap: balance;
+}
+
+.container-todos {
+  border: rgb(215, 255, 215) solid 3px;
+  width: 100%;
+  padding: 10px;
+  color: #353d34;
+  background-color: #728072;
+}
+
+.container-todo {
+  border: solid #353d34 2px;
+  margin-bottom: 4px;
 }

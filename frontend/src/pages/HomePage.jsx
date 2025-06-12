@@ -89,13 +89,13 @@ function HomePage() {
     }
 
     return (
-        <div>
+        <div className='container-master'>
             {/* <div>
                 {loading && <p>loading..</p>}
             </div> */}
             {!loading && (
 
-            <div>
+            <div className='container-main'>
                 
                 <button onClick={logoutUser}>Logout</button>
                 <button>Light Mode</button>
@@ -106,7 +106,7 @@ function HomePage() {
 
                 {!typingMode && (
 
-                <div>
+                <div className='container-todos'>
                     {!view ? 
                         (
                         <div> 
