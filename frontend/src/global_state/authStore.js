@@ -96,6 +96,25 @@ export const useAuth = create((set) => ({
         set({loading: false})
     },
 
+    updateUser: async (updatedUser) => {
+        set({loading: true})
+        console.log("Update user starts")
+        const user = await account.get()
+        try {
+            const response = await fetch(`api/user/${user.$id}`, {
+                method: "PATCH",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(updatedUser)
+            })
+            const data = await response.json()
+            console.log(data.response)
+            set((state) => ({documentUser: data.response}))
+        } catch (error) {
+            console.error(error)
+        }
+        set({loading: false})
+    },
+
     updatePassword: async (newPass, oldPass) => {
         set({loading: true})
         console.log("Start changing password")

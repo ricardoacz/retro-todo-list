@@ -14,6 +14,20 @@ function Settings() {
     const [email, setEmail] = useState("")
     const [nickname, setNickname] = useState("")
 
+    const handleUpdateNickname = async () => {
+        if (nickname.length > 16) {
+            return setMessage("Nickname can't be longer than 16 characters.")
+        }
+        const updatedUser = {}
+        updatedUser.nickname = nickname
+
+        try {
+            await updateUser(updatedUser)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     // Password input states
     const [oldPassword, setOldPassword] = useState('')
     const [newPassword, setNewPassword] = useState('')
@@ -70,7 +84,7 @@ function Settings() {
             checkUserSession()
         }, [])
     
-    const {documentUser, getUser, updatePassword, loading} = useAuth()
+    const {documentUser, getUser, updatePassword, updateUser, loading} = useAuth()
     const {getTodos, todos} = useTodoStore()
 
     useEffect(() => {
@@ -92,9 +106,10 @@ function Settings() {
                     <h3>{documentUser?.email}</h3>
                     {/* <input onChange={(e) => setEmail(e.target.value)} value={documentUser?.email} />
                     <button>Update</button> */}
+
                     <h3>Nickname</h3>
-                    <input onChange={(e) => setNickname(e.target.value)} value={documentUser?.nickname} />
-                    <button>Update</button>
+                    <input onChange={(e) => setNickname(e.target.value)} defaultValue={documentUser?.nickname} />
+                    <button onClick={handleUpdateNickname}>Update</button>
 
                     <h3>Todos Completed</h3>
                     <span>{
