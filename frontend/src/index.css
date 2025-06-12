@@ -113,7 +113,15 @@ html {
   margin-bottom: 4px;
 }
 
+.container-todo  {
+  line-height: 1.6rem;
+}
+
 .container-todo:hover {
   cursor: pointer;
   border: solid #ffffff;
+}
+
+.container-settings {
+  line-height: 1.5rem;
 }

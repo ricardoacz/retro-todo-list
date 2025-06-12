@@ -96,9 +96,16 @@ function Settings() {
         <div>
             {!loading && (
 
-            <div>
+            <div className='container-settings'>
                 <button onClick={() => navigate('/')}>Todos</button>
                 <div>
+                    <h3>{`You’ve completed `}                 
+                        <span>{
+                            todos.filter((todo) => todo.completed).length
+                        }</span>
+                    {` todos.`}
+                    </h3>
+
                     <h3>{documentUser?.name}</h3>
                     {/* <input onChange={(e) => setName(e.target.value)} value={documentUser?.name}/>
                     <button>Update</button> */}
@@ -111,10 +118,6 @@ function Settings() {
                     <input onChange={(e) => setNickname(e.target.value)} defaultValue={documentUser?.nickname} />
                     <button onClick={handleUpdateNickname}>Update</button>
 
-                    <h3>Todos Completed</h3>
-                    <span>{
-                        todos.filter((todo) => todo.completed).length
-                    }</span>
 
                     <h3>Change your password</h3>
                         <input 
