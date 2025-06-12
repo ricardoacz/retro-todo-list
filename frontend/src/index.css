@@ -112,3 +112,8 @@ html {
   border: solid #353d34 2px;
   margin-bottom: 4px;
 }
+
+.container-todo:hover {
+  cursor: pointer;
+  border: #ffffff;
+}
