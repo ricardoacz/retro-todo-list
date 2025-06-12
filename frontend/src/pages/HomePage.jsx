@@ -10,17 +10,25 @@ function HomePage() {
     
     const {logoutUser} = useAuth()
     const [user, setUser] = useState({})
+    const [nickname, setNickname] = useState("")
     const [view, setView] = useState(false)
     const [typingMode, setTypingMode] = useState(false)
     const [todoValue, setTodoValue] = useState("")
 
     const {todos, getTodos, createTodo, updateTodo} = useTodoStore()
 
+    // const {getUser} = useAuth()
+    const {documentUser, getUser, loading} = useAuth()
+
     useEffect(() => {
         getTodos()
     }, [])
 
-    // console.log(todos)
+    useEffect(() => {
+        getUser()
+    }, [])
+
+    // console.log(userDocument)
 
     
     const navigate = useNavigate()
@@ -53,10 +61,6 @@ function HomePage() {
         setTodoValue("")
     }
 
-    const handleMarkTodoDone = async () => {
-
-    }
-
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (e.key === '`') {
@@ -86,7 +90,10 @@ function HomePage() {
 
     return (
         <div>
-            {user && (
+            {/* <div>
+                {loading && <p>loading..</p>}
+            </div> */}
+            {!loading && (
 
             <div>
                 
@@ -94,7 +101,7 @@ function HomePage() {
                 <button>Light Mode</button>
                 <button onClick={() => navigate('/settings')}>Settings</button>
                 <button onClick={() => setTypingMode(!typingMode)}>Type|Todo</button>
-                <h1>{`Welcome ${user.name}`}</h1>
+                <h1>{`Welcome ${documentUser?.nickname}`}</h1>
                 <button onClick={handleTodoView}>Todo | Completed</button>
 
                 {!typingMode && (

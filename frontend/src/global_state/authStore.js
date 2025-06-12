@@ -5,6 +5,7 @@ import { create } from "zustand";
 export const useAuth = create((set) => ({
     user: null,
     loading: false,
+    documentUser: null,
 
     loginUser: async (userInfo) => {
         set({ loading: true })
@@ -79,5 +80,22 @@ export const useAuth = create((set) => ({
         return false
         }
     },
+
+    getUser: async () => {
+        set({loading: true})
+        console.log("Get user starts")
+        const user = await account.get()
+        try {
+            const response = await fetch(`api/user?userId=${user.$id}`)
+            const data = await response.json()
+            console.log(data.response)
+            set((state) => ({documentUser: data.response}))
+        } catch (error) {
+            console.error(error)
+        }
+        set({loading: false})
+    },
+
+
     
 }))

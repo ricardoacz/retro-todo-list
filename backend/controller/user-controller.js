@@ -2,12 +2,14 @@ import { client, databases, account } from '../config/appwrite.js'
 import { ID, Query } from 'node-appwrite'
 
 export const getUser = async (req, res) => {
+    console.log("Start getting user", req.query.userId)
     try {
-        const response = await databases.listDocuments(
+        const response = await databases.getDocument(
             process.env.DB,
             process.env.APPWRITE_COLLECTION_USERS,
-            []
+            req.query.userId
         )
+        console.log(response)
         res.status(200).json({success: true, response})
     } catch (error) {
         console.error(error)
