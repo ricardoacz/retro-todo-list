@@ -96,14 +96,15 @@ export const useAuth = create((set) => ({
         set({loading: false})
     },
 
-    updatePassword: async (passwords) => {
+    updatePassword: async (newPass, oldPass) => {
         set({loading: true})
         console.log("Start changing password")
         try {
             const result = await account.updatePassword(
-            password.new,
-            password.old
+            newPass,
+            oldPass
         )
+        console.log("password updated")
         } catch (error) {
             console.error(error)
         }
