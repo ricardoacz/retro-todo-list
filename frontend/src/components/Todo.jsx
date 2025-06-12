@@ -29,7 +29,7 @@ function Todo({todo}) {
             <span onClick={handleMarkTodoDone}>{!todo.completed ? '[ ] ' : '[✓] '}</span>
                 {`${todo.todo} `}
             
-            {/* <span onClick={handleMarkTodoImportant}>{!todo.important ? '[^]' : '[!]'}</span> */}
+            <span onClick={handleMarkTodoImportant}>{!todo.important ? '[^]' : '[!]'}</span>
             <span onClick={handleDeleteTodo}>[X]</span>
             </p>
         </div>

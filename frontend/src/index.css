@@ -78,6 +78,11 @@ html {
   font-family: 'Press Start 2P', Arial, Helvetica, sans-serif;
 }
 
+button {
+  font-family: 'Press Start 2P', Arial, Helvetica, sans-serif;
+  height: 50px;
+}
+
 .container-main {
   padding: 0 10px;
 }

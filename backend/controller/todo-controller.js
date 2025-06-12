@@ -8,7 +8,8 @@ export const getTodos = async (req, res) => {
             process.env.DB,
             process.env.APPWRITE_COLLECTION_TODOS,
             [
-                Query.equal('user', [req.query.userId])
+                Query.equal('user', [req.query.userId]),
+                Query.orderDesc('important')
             ]
         )
         console.log(response)
