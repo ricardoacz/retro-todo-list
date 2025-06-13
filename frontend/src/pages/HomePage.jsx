@@ -117,6 +117,9 @@ function HomePage() {
     useEffect(() => {
         if (typingMode && textareaRef.current) {
             textareaRef.current.focus()
+            setTypeViewName('Todos')
+        } else {
+            setTypeViewName('Typing')
         }
     }, [typingMode])
 
@@ -138,7 +141,7 @@ function HomePage() {
                 <button onClick={handleLogout}>Logout</button>
                 <button onClick={toggleColorMode}>{colorModeName}</button>
                 <button onClick={() => navigate('/settings')}>Settings</button>
-                <button onClick={() => setTypingMode(!typingMode)}>Type|Todo</button>
+                <button onClick={() => setTypingMode(!typingMode)}>{typeViewName}</button>
                 <h1>{`Welcome ${documentUser?.nickname}`}</h1>
                 <button onClick={handleTodoView}>{todoViewName}</button>
 
