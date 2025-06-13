@@ -10,11 +10,11 @@ function HomePage() {
     
     const navigate = useNavigate()
 
-    // const [user, setUser] = useState({})
     const [view, setView] = useState(false)
     const [typingMode, setTypingMode] = useState(false)
     const [todoValue, setTodoValue] = useState("")
 
+    // Color Mode Settings ->
     const [colorMode, setColorMode] = useState(() => {
         const saved = localStorage.getItem('colorMode')
         return saved ? JSON.parse(saved) : false;
@@ -37,7 +37,9 @@ function HomePage() {
     const toggleColorMode = () => {
         setColorMode((prev) => !prev);
     };
+    // <- Color Mode Settings
 
+    // Todos ->
     const {todos, getTodos, createTodo, updateTodo} = useTodoStore()
 
     async function updateLocalTodos () {
@@ -48,7 +50,19 @@ function HomePage() {
             console.error(error)
         }
     }
+    const textareaRef = useRef(null)
 
+    const handleAddTodo = async (e) => {
+        e.preventDefault()
+        const newTodo = {
+            todo: todoValue
+        }
+        createTodo(newTodo)
+        setTodoValue("")
+    }
+    // <- Todos
+
+    // Auth -> 
     const {documentUser, getUser, loading, logoutUser, checkUserStatus, user} = useAuth()
     
     useEffect(() => {
@@ -65,22 +79,12 @@ function HomePage() {
         getUser()
     }, [])
 
-
     const handleLogout = async () => {
         await logoutUser()
         navigate('/login')
     }
+    // <- Auth
 
-    const textareaRef = useRef(null)
-
-    const handleAddTodo = async (e) => {
-        e.preventDefault()
-        const newTodo = {
-            todo: todoValue
-        }
-        createTodo(newTodo)
-        setTodoValue("")
-    }
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -88,7 +92,6 @@ function HomePage() {
                 e.preventDefault() 
                 console.log(`you pressed ${e.key}`)
                 setTypingMode((prev) => !prev)
-                // window.removeEventListener('keydown', handleKeyDown)
             }
         }
         window.addEventListener('keydown', handleKeyDown)
@@ -111,9 +114,6 @@ function HomePage() {
 
     return (
         <div className='container-master'>
-            {/* <div>
-                {loading && <p>loading..</p>}
-            </div> */}
             {user && !loading && (
 
             <div className='container-main'>
