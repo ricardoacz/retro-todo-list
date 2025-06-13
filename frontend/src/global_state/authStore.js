@@ -73,12 +73,14 @@ export const useAuth = create((set) => ({
     },
 
     checkUserStatus: async () => {
+        set({loading: true})
         try {
             const accountDetails = await account.get()
             set({ user: accountDetails })
             return accountDetails
         } catch (error) {
             set({ user: null })
+            set({loading: false})
         return false
         }
     },

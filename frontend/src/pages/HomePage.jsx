@@ -8,13 +8,10 @@ import Todo from '../components/Todo'
 
 function HomePage() {
     
-    const {logoutUser} = useAuth()
     const [user, setUser] = useState({})
-    const [nickname, setNickname] = useState("")
     const [view, setView] = useState(false)
     const [typingMode, setTypingMode] = useState(false)
     const [todoValue, setTodoValue] = useState("")
-    const [localTodos, setLocalTodos] = useState([])
 
     const [colorMode, setColorMode] = useState(() => {
         const saved = localStorage.getItem('colorMode')
@@ -39,36 +36,6 @@ function HomePage() {
         setColorMode((prev) => !prev);
     };
 
-    // const [colorMode, setColorMode] = useState(false)
-
-    // const handleColorMode = () => {
-    //     console.log("updating color")
-    //     if (!localStorage.getItem('colorMode')) {
-    //         setColorMode(true)
-    //        return localStorage.setItem('colorMode', JSON.stringify(true))
-    //     }
-
-    //     if (JSON.parse(localStorage.getItem('colorMode')) === true) {
-    //         setColorMode(true)
-    //     } else {
-    //         setColorMode(false)
-    //     }
-
-        
-
-    //     if (colorMode) {
-    //         document.documentElement.style.setProperty('--dark-mode-color', '#242424')
-    //         document.documentElement.style.setProperty('--dark-mode-bg-color', 'rgb(215, 255, 215)')
-    //     } else {
-    //         document.documentElement.style.setProperty('--dark-mode-color', 'rgba(255, 255, 255, 0.87)')
-    //         document.documentElement.style.setProperty('--dark-mode-bg-color', '#242424')
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     handleColorMode()
-    // }, [])
-
     const {todos, getTodos, createTodo, updateTodo} = useTodoStore()
 
     async function updateLocalTodos () {
@@ -80,8 +47,8 @@ function HomePage() {
         }
     }
 
-    // const {getUser} = useAuth()
-    const {documentUser, getUser, loading} = useAuth()
+
+    const {documentUser, getUser, loading, logoutUser} = useAuth()
 
     useEffect(() => {
         getTodos()
