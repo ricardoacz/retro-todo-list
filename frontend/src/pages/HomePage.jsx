@@ -14,6 +14,9 @@ function HomePage() {
     const [typingMode, setTypingMode] = useState(false)
     const [todoValue, setTodoValue] = useState("")
 
+    // states for toggle btns
+    const [todoViewName, setTodoViewName] = useState('Todo View')
+
     // Color Mode Settings ->
     const [colorMode, setColorMode] = useState(() => {
         const saved = localStorage.getItem('colorMode')
@@ -29,8 +32,6 @@ function HomePage() {
         document.documentElement.style.setProperty('--dark-mode-color', 'rgba(255, 255, 255, 0.87)')
         document.documentElement.style.setProperty('--dark-mode-bg-color', '#242424')
         }
-
-        
         localStorage.setItem('colorMode', JSON.stringify(colorMode))
     }, [colorMode])
 
@@ -109,6 +110,11 @@ function HomePage() {
     }, [typingMode])
 
     function handleTodoView () {
+        if (!view) {
+            setTodoViewName('Completed')
+        } else {
+            setTodoViewName('Todo View')
+        }
         setView((prev) => !prev)
     }
 
@@ -123,7 +129,7 @@ function HomePage() {
                 <button onClick={() => navigate('/settings')}>Settings</button>
                 <button onClick={() => setTypingMode(!typingMode)}>Type|Todo</button>
                 <h1>{`Welcome ${documentUser?.nickname}`}</h1>
-                <button onClick={handleTodoView}>Todo | Completed</button>
+                <button onClick={handleTodoView}>{todoViewName}</button>
 
                 {!typingMode && (
 
