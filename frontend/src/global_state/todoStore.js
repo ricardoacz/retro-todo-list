@@ -12,7 +12,17 @@ export const useTodoStore = create((set) => ({
             const response = await fetch(`api/todo?userId=${user.$id}`)
             const data = await response.json()
             console.log(data.response.documents)
-            set((state) => ({todos: data.response.documents}))
+            // set((state) => ({todos: data.response.documents}))
+            set((state) => {
+                const todoDocs = [...data.response.documents]
+                const sortByCreatedAt = todoDocs.sort((a,b) => {
+                    return new Date(a.$createdAt) - new Date(b.$createdAt)
+                })
+                const sortUpdatedTodos = [...sortByCreatedAt].sort((a, b) => {
+                    return (b.important === true) - (a.important === true)
+                })
+                return {todos: sortUpdatedTodos}
+            })
         } catch (error) {
             console.error(error)
         }
@@ -52,7 +62,10 @@ export const useTodoStore = create((set) => ({
                 const fetchedUpdatedTodos = state.todos.map((todo) => 
                     todo.$id === updatedTodo.$id ? data.response : todo
                 )
-                const sortUpdatedTodos = [...fetchedUpdatedTodos].sort((a, b) => {
+                const sortByCreatedAt = [...fetchedUpdatedTodos].sort ((a,b) => {
+                    return new Date(a.$createdAt) - new Date(b.$createdAt)
+                })
+                const sortUpdatedTodos = [...sortByCreatedAt].sort((a, b) => {
                     return (b.important === true) - (a.important === true)
                 })
                 return {todos: sortUpdatedTodos}
