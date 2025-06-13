@@ -16,21 +16,31 @@ function HomePage() {
 
     // states for toggle btns
     const [todoViewName, setTodoViewName] = useState('Todo View')
+    const [colorModeName, setColorModeName] = useState('')
 
     // Color Mode Settings ->
     const [colorMode, setColorMode] = useState(() => {
         const saved = localStorage.getItem('colorMode')
-        return saved ? JSON.parse(saved) : false;
+        // return saved ? JSON.parse(saved) : false
+        if (saved) {
+            setColorModeName('Dark Mode')
+            return JSON.parse(saved)
+        } else {
+            setColorModeName('Light Mode')
+            return false
+        }
     })
 
     useEffect(() => {
         
         if (colorMode) {
-        document.documentElement.style.setProperty('--dark-mode-color', '#242424')
-        document.documentElement.style.setProperty('--dark-mode-bg-color', 'rgb(215, 255, 215)')
+            document.documentElement.style.setProperty('--dark-mode-color', '#242424')
+            document.documentElement.style.setProperty('--dark-mode-bg-color', 'rgb(215, 255, 215)')
+            setColorModeName('Dark Mode')
         } else {
-        document.documentElement.style.setProperty('--dark-mode-color', 'rgba(255, 255, 255, 0.87)')
-        document.documentElement.style.setProperty('--dark-mode-bg-color', '#242424')
+            document.documentElement.style.setProperty('--dark-mode-color', 'rgba(255, 255, 255, 0.87)')
+            document.documentElement.style.setProperty('--dark-mode-bg-color', '#242424')
+            setColorModeName('Light Mode')
         }
         localStorage.setItem('colorMode', JSON.stringify(colorMode))
     }, [colorMode])
@@ -125,7 +135,7 @@ function HomePage() {
             <div className='container-main'>
                 
                 <button onClick={handleLogout}>Logout</button>
-                <button onClick={toggleColorMode}>Light Mode</button>
+                <button onClick={toggleColorMode}>{colorModeName}</button>
                 <button onClick={() => navigate('/settings')}>Settings</button>
                 <button onClick={() => setTypingMode(!typingMode)}>Type|Todo</button>
                 <h1>{`Welcome ${documentUser?.nickname}`}</h1>
