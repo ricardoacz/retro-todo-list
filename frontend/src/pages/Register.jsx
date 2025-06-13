@@ -27,11 +27,11 @@ const Register = () => {
         
         const userInfo = {name, email, nickname, password1, password2}
 
-        const {success} = await registerUser(userInfo)
-        if (success) {
+        const session = await registerUser(userInfo)
+        if (session) {
             navigate('/')
         } else {
-            console.log(success)
+            console.log('Registration error')
         }
     }
 
@@ -48,7 +48,7 @@ const Register = () => {
       <div>
         {!user && !loading && (
 
-          <div className="container-main">
+          <div className="container-main-register">
             <div className="login-register-container">
               <form ref={registerForm} onSubmit={handleSubmit}>
 

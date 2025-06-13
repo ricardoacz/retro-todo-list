@@ -115,6 +115,7 @@ button, input {
 .container-todos {
   border: rgb(215, 255, 215) solid 3px;
   width: 100%;
+  min-height: 50px;
   padding: 10px;
   color: #353d34;
   background-color: #728072;
@@ -177,6 +178,17 @@ h1 {
 /* Loing Page */
 
 .container-main-login {
+  position: absolute;
+  line-height: 40px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* border: 2px solid red; */
+}
+
+/* Register Page */
+
+.container-main-register {
   position: absolute;
   line-height: 40px;
   top: 50%;
