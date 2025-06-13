@@ -16,6 +16,24 @@ function HomePage() {
     const [todoValue, setTodoValue] = useState("")
     const [localTodos, setLocalTodos] = useState([])
 
+    const [colorMode, setColorMode] = useState(true)
+
+    const handleColorMode = () => {
+        console.log("updating color")
+        
+        if (colorMode) {
+            document.documentElement.style.setProperty('--dark-mode-color', '#242424')
+            document.documentElement.style.setProperty('--dark-mode-bg-color', 'rgb(215, 255, 215)')
+        } else {
+            document.documentElement.style.setProperty('--dark-mode-color', 'rgba(255, 255, 255, 0.87)')
+            document.documentElement.style.setProperty('--dark-mode-bg-color', '#242424')
+        }
+    }
+
+    useEffect(() => {
+        handleColorMode()
+    }, [])
+
     const {todos, getTodos, createTodo, updateTodo} = useTodoStore()
 
     async function updateLocalTodos () {
@@ -112,7 +130,7 @@ function HomePage() {
             <div className='container-main'>
                 
                 <button onClick={logoutUser}>Logout</button>
-                <button>Light Mode</button>
+                <button onClick={handleColorMode}>Light Mode</button>
                 <button onClick={() => navigate('/settings')}>Settings</button>
                 <button onClick={() => setTypingMode(!typingMode)}>Type|Todo</button>
                 <h1>{`Welcome ${documentUser?.nickname}`}</h1>

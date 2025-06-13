@@ -51,7 +51,7 @@ const Register = () => {
     }, [loading, user])
 
   return (
-    <div className="container">
+    <div className="container-main">
       <div className="login-register-container">
         <form ref={registerForm} onSubmit={handleSubmit}>
 
@@ -81,7 +81,7 @@ const Register = () => {
                 required
                 type="text" 
                 name="nickname"
-                placeholder="Enter email..."
+                placeholder="Enter nickname..."
                 />
           </div>
 

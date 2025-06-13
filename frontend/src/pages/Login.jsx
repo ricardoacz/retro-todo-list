@@ -35,7 +35,7 @@ const Login = () => {
     }
 
     return (
-        <div className="container">
+        <div className="container-main-login">
             <div className="login-register-container">
                 <form onSubmit={handleSubmit} ref={loginForm}>
                     <div className="form-field-wrapper">

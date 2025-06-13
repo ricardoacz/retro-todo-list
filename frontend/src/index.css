@@ -67,24 +67,38 @@ button:focus-visible {
   }
 } */
 
+:root {
+  --dark-mode-color: rgba(255, 255, 255, 0.87);
+  --dark-mode-bg-color: #242424;
+  --light-mode-color: #242424;
+  --light-mode-bg-color: rgb(215, 255, 215);
+}
+
 * {
   box-sizing: border-box;
 }
 
 html {
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--dark-mode-color);
+  background-color: var(--dark-mode-bg-color);
   font-family: 'Press Start 2P', Arial, Helvetica, sans-serif;
 }
 
-button {
+/* html {
+  color-scheme: dark light;
+  color: #242424;
+  background-color: rgb(215, 255, 215);
+  font-family: 'Press Start 2P', Arial, Helvetica, sans-serif;
+} */
+
+button, input {
   font-family: 'Press Start 2P', Arial, Helvetica, sans-serif;
   height: 50px;
 }
 
 .container-main {
-  padding: 0 10px;
+  padding: 10px 10px;
 }
 
 /* .container-todos {
@@ -127,6 +141,31 @@ button {
   border: solid #ffffff;
 }
 
+.container-todo span:hover {
+  cursor: pointer;
+  color: white;
+}
+
 .container-settings {
   line-height: 1.5rem;
+}
+
+h1 {
+  line-height: 2.3rem;
+  word-wrap: break-word;
+}
+
+/* Loing Page */
+
+.container-main-login {
+  border: 2px solid red;
+ 
+}
+
+.container-main-login {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid red;
 }

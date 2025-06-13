@@ -93,7 +93,7 @@ function Settings() {
     }, [])
 
     return (
-        <div>
+        <div className='container-main'>
             {!loading && (
 
             <div className='container-settings'>
@@ -106,11 +106,12 @@ function Settings() {
                     {` todos.`}
                     </h3>
 
-                    <h3>{documentUser?.name}</h3>
+                    {/* <h3>{documentUser?.name}</h3> */}
+                    <h5>{'Name: '}{documentUser?.name}</h5>
                     {/* <input onChange={(e) => setName(e.target.value)} value={documentUser?.name}/>
                     <button>Update</button> */}
                     {/* <h5>{documentUser?.name}</h5> */}
-                    <h3>{documentUser?.email}</h3>
+                    <h5>{'Email: '}{documentUser?.email}</h5>
                     {/* <input onChange={(e) => setEmail(e.target.value)} value={documentUser?.email} />
                     <button>Update</button> */}
 
