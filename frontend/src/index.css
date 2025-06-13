@@ -148,10 +148,24 @@ h1 {
   word-wrap: break-word;
 }
 
+.instructions {
+  line-height: 1.3rem;
+}
+
 .container-typing-box form {
   /* border: 2px solid red; */
   display: flex;
   flex-direction: column;
+}
+
+.hint {
+  font-size: 0.8rem;
+  color: var(--dark-mode-color);
+}
+
+.hint:hover {
+  color: yellowgreen;
+  cursor: pointer;
 }
 
 /* .container-typing-box button {
