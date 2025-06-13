@@ -49,26 +49,22 @@ function HomePage() {
         }
     }
 
-
     const {documentUser, getUser, loading, logoutUser, checkUserStatus, user} = useAuth()
+    
+    useEffect(() => {
+        const userCheck = async () => {
+            if (!await checkUserStatus()) {
+                navigate('/login')
+            } 
+        }
+        userCheck()
+    }, [])
 
     useEffect(() => {
         getTodos()
         getUser()
     }, [])
 
-    useEffect(() => {
-        const userCheck = async () => {
-            try {
-                checkUserStatus()
-                console.log('user check:', await user)
-            } catch (error) {
-                console.error(error)
-                navigate('/login')
-            }
-        }
-        userCheck()
-    }, [])
 
     const handleLogout = async () => {
         await logoutUser()

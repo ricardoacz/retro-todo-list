@@ -35,94 +35,93 @@ const Register = () => {
         }
     }
 
-    // Trigger check user logged in
     useEffect(() => {
-        const check = async () => {
-        await checkUserStatus()
-        }
-        check()
-    }, [])
+            const userCheck = async () => {
+                if (await checkUserStatus()) {
+                    navigate('/')
+                } 
+            }
+            userCheck()
+        }, [])
 
-    // Comfirm user is logged in and redirect
-    useEffect(() => {
-        if (!loading && user) {
-        navigate('/')
-        }
-    }, [loading, user])
+    return (
+      <div>
+        {!user && !loading && (
 
-  return (
-    <div className="container-main">
-      <div className="login-register-container">
-        <form ref={registerForm} onSubmit={handleSubmit}>
+          <div className="container-main">
+            <div className="login-register-container">
+              <form ref={registerForm} onSubmit={handleSubmit}>
 
-        <div className="form-field-wrapper">
-              <label>Name:</label>
-              <input 
-                required
-                type="text" 
-                name="name"
-                placeholder="Enter name..."
-                />
-          </div>
+              <div className="form-field-wrapper">
+                    <label>Name:</label>
+                    <input 
+                      required
+                      type="text" 
+                      name="name"
+                      placeholder="Enter name..."
+                      />
+                </div>
 
-          <div className="form-field-wrapper">
-              <label>Email:</label>
-              <input 
-                required
-                type="email" 
-                name="email"
-                placeholder="Enter email..."
-                />
-          </div>
+                <div className="form-field-wrapper">
+                    <label>Email:</label>
+                    <input 
+                      required
+                      type="email" 
+                      name="email"
+                      placeholder="Enter email..."
+                      />
+                </div>
 
-           <div className="form-field-wrapper">
-              <label>Nickname:</label>
-              <input 
-                required
-                type="text" 
-                name="nickname"
-                placeholder="Enter nickname..."
-                />
-          </div>
+                <div className="form-field-wrapper">
+                    <label>Nickname:</label>
+                    <input 
+                      required
+                      type="text" 
+                      name="nickname"
+                      placeholder="Enter nickname..."
+                      />
+                </div>
 
-          <div className="form-field-wrapper">
-              <label>Password:</label>
-              <input 
-                type="password"
-                name="password1" 
-                placeholder="Enter password..."
-                autoComplete="password1"
-                />
-          </div>
+                <div className="form-field-wrapper">
+                    <label>Password:</label>
+                    <input 
+                      type="password"
+                      name="password1" 
+                      placeholder="Enter password..."
+                      autoComplete="password1"
+                      />
+                </div>
 
-          <div className="form-field-wrapper">
-              <label>Confirm Password:</label>
-              <input 
-                type="password"
-                name="password2" 
-                placeholder="Confirm password..."
-                autoComplete="password2"
-                />
-          </div>
+                <div className="form-field-wrapper">
+                    <label>Confirm Password:</label>
+                    <input 
+                      type="password"
+                      name="password2" 
+                      placeholder="Confirm password..."
+                      autoComplete="password2"
+                      />
+                </div>
 
 
-          <div className="form-field-wrapper">
+                <div className="form-field-wrapper">
 
-              <input 
-                type="submit" 
-                value="Register"
-                className="btn"
-                />
+                    <input 
+                      type="submit" 
+                      value="Register"
+                      className="btn"
+                      />
 
-          </div>
+                </div>
 
-        </form>
+              </form>
 
-        <p>Already have an account? <Link to="/login">Login</Link></p>
+              <p>Already have an account? <Link to="/login">Login</Link></p>
 
+            </div>
+        </div>
+        )}
       </div>
-  </div>
-  )
+    )
 }
 
 export default Register

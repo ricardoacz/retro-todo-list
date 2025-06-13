@@ -8,21 +8,13 @@ const Login = () => {
     const loginForm = useRef(null)
 
     useEffect(() => {
-            const userCheck = async () => {
-                // try {
-                //     checkUserStatus()
-                //     console.log('user check:', await user)
-                //     navigate('/')
-                // } catch (error) {
-                //     console.error(error)
-                //     navigate('/login')
-                // }
-                if (await checkUserStatus()) {
-                    navigate('/')
-                } 
-            }
-            userCheck()
-        }, [])
+        const userCheck = async () => {
+            if (await checkUserStatus()) {
+                navigate('/')
+            } 
+        }
+        userCheck()
+    }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
