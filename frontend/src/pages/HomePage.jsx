@@ -14,8 +14,18 @@ function HomePage() {
     const [view, setView] = useState(false)
     const [typingMode, setTypingMode] = useState(false)
     const [todoValue, setTodoValue] = useState("")
+    const [localTodos, setLocalTodos] = useState([])
 
     const {todos, getTodos, createTodo, updateTodo} = useTodoStore()
+
+    async function updateLocalTodos () {
+        try {
+            await todos
+            setLocalTodos(todos)
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
     // const {getUser} = useAuth()
     const {documentUser, getUser, loading} = useAuth()
@@ -27,6 +37,10 @@ function HomePage() {
     useEffect(() => {
         getUser()
     }, [])
+
+    // useEffect(() => {
+    //     updateTodo()
+    // }, [updateTodo])
 
     // console.log(userDocument)
 
@@ -111,7 +125,7 @@ function HomePage() {
                         (
                         <div> 
                             {todos.filter((todo) => !todo.completed).map((todo, index) => (
-                                <Todo key={index} todo={todo} />
+                                <Todo key={index} todo={todo} updateLocalTodos={updateLocalTodos} />
                             ))}
                         </div>
                         )

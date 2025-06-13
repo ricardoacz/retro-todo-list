@@ -1,20 +1,20 @@
 import React from 'react'
 import { useTodoStore } from '../global_state/todoStore'
 
-function Todo({todo}) {
+function Todo({todo, updateLocalTodos}) {
 
     const {updateTodo, deleteTodo} = useTodoStore()
 
     const handleMarkTodoDone = async () => {
-        const copyTodo = todo
-        copyTodo.completed = !copyTodo.completed
+       
+        const copyTodo = {...todo, completed: !todo.completed}
         updateTodo(copyTodo)
     }
 
     const handleMarkTodoImportant = async () => {
-        const copyTodo = todo
-        copyTodo.important = !copyTodo.important
+        const copyTodo = {...todo, important: !todo.important}
         updateTodo(copyTodo)
+        
     }
 
     const handleDeleteTodo = async () => {

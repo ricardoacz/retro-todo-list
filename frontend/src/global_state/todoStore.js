@@ -47,11 +47,16 @@ export const useTodoStore = create((set) => ({
             })
             const data = await response.json()
             console.log(data.response)
-            set((state) => ({
-                todos: state.todos.map((todo) => 
+
+            set((state) => {
+                const fetchedUpdatedTodos = state.todos.map((todo) => 
                     todo.$id === updatedTodo.$id ? data.response : todo
                 )
-            }))
+                const sortUpdatedTodos = [...fetchedUpdatedTodos].sort((a, b) => {
+                    return (b.important === true) - (a.important === true)
+                })
+                return {todos: sortUpdatedTodos}
+            })
 
         } catch (error) {
             console.error(error)
