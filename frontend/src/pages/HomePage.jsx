@@ -17,6 +17,7 @@ function HomePage() {
     // states for toggle btns
     const [todoViewName, setTodoViewName] = useState('Todo View')
     const [colorModeName, setColorModeName] = useState('')
+    const [typeViewName, setTypeViewName] = useState('Type')
 
     // Color Mode Settings ->
     const [colorMode, setColorMode] = useState(() => {
@@ -168,21 +169,23 @@ function HomePage() {
 
                 <div>
                     <p>Typing interface</p>
-                    <div>
+                    <div className='container-typing-box'>
                         <form onSubmit={handleAddTodo}>
-                            <textarea 
-                                ref={textareaRef}
-                                maxLength={60} 
-                                className='text-box' 
-                                onChange={(e) => setTodoValue(e.target.value)}
-                                value={todoValue}
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter') {
-                                        e.preventDefault()
-                                        handleAddTodo(e)
-                                    }
-                                }}
-                            ></textarea>
+                            <div>
+                                <textarea 
+                                    ref={textareaRef}
+                                    maxLength={60} 
+                                    className='text-box' 
+                                    onChange={(e) => setTodoValue(e.target.value)}
+                                    value={todoValue}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') {
+                                            e.preventDefault()
+                                            handleAddTodo(e)
+                                        }
+                                    }}
+                                ></textarea>
+                            </div>
                             <button type='submit'>Submit</button>
                         </form>
                     </div>
