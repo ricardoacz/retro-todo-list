@@ -7,20 +7,22 @@ const Login = () => {
     const navigate = useNavigate()
     const loginForm = useRef(null)
 
-    // Trigger check user logged in
     useEffect(() => {
-        const check = async () => {
-        await checkUserStatus()
-        }
-        check()
-    }, [])
-
-    // Comfirm user is logged in and redirect
-    useEffect(() => {
-        if (!loading && user) {
-        navigate('/')
-        }
-    }, [loading, user])
+            const userCheck = async () => {
+                // try {
+                //     checkUserStatus()
+                //     console.log('user check:', await user)
+                //     navigate('/')
+                // } catch (error) {
+                //     console.error(error)
+                //     navigate('/login')
+                // }
+                if (await checkUserStatus()) {
+                    navigate('/')
+                } 
+            }
+            userCheck()
+        }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -35,35 +37,39 @@ const Login = () => {
     }
 
     return (
-        <div className="container-main-login">
-            <div className="login-register-container">
-                <form onSubmit={handleSubmit} ref={loginForm}>
-                    <div className="form-field-wrapper">
-                        <label>Email:</label>
-                        <input
-                        required
-                        type="email"
-                        name="email"
-                        placeholder="Enter email..."
-                        />
+        <div>
+            {!user && !loading && (
+                <div className="container-main-login">
+                    <div className="login-register-container">
+                        <form onSubmit={handleSubmit} ref={loginForm}>
+                            <div className="form-field-wrapper">
+                                <label>Email:</label>
+                                <input
+                                required
+                                type="email"
+                                name="email"
+                                placeholder="Enter email..."
+                                />
+                            </div>
+    
+                            <div className="form-field-wrapper">
+                                <label>Password:</label>
+                                <input
+                                type="password"
+                                name="password"
+                                placeholder="Enter password..."
+                                autoComplete="password"
+                                />
+                            </div>
+    
+                            <div className="form-field-wrapper">
+                                <input type="submit" value="Login" className="btn" />
+                            </div>
+                        </form>
                     </div>
-
-                    <div className="form-field-wrapper">
-                        <label>Password:</label>
-                        <input
-                        type="password"
-                        name="password"
-                        placeholder="Enter password..."
-                        autoComplete="password"
-                        />
-                    </div>
-
-                    <div className="form-field-wrapper">
-                        <input type="submit" value="Login" className="btn" />
-                    </div>
-                </form>
-            </div>
-             <p>Don't have an account? <Link to="/register">Register</Link></p>
+                    <p>Don't have an account? <Link to="/register">Register</Link></p>
+                </div>
+            )}
         </div>
     )
 }
