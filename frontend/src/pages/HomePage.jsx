@@ -8,7 +8,9 @@ import Todo from '../components/Todo'
 
 function HomePage() {
     
-    const [user, setUser] = useState({})
+    const navigate = useNavigate()
+
+    // const [user, setUser] = useState({})
     const [view, setView] = useState(false)
     const [typingMode, setTypingMode] = useState(false)
     const [todoValue, setTodoValue] = useState("")
@@ -48,43 +50,32 @@ function HomePage() {
     }
 
 
-    const {documentUser, getUser, loading, logoutUser} = useAuth()
+    const {documentUser, getUser, loading, logoutUser, checkUserStatus, user} = useAuth()
 
     useEffect(() => {
         getTodos()
-    }, [])
-
-    useEffect(() => {
         getUser()
     }, [])
 
-    
-    const navigate = useNavigate()
+    useEffect(() => {
+        const userCheck = async () => {
+            try {
+                checkUserStatus()
+                console.log('user check:', await user)
+            } catch (error) {
+                console.error(error)
+                navigate('/login')
+            }
+        }
+        userCheck()
+    }, [])
 
     const handleLogout = async () => {
         await logoutUser()
-        location.reload()
-        navigate('/')
+        navigate('/login')
     }
 
     const textareaRef = useRef(null)
-
-    useEffect(() => {
-        const checkUserSession = async () => {
-            let session = null
-            try {
-                session = await account.get()
-                console.log(session)
-                setUser(session)
-                
-                
-            } catch (error) {
-                navigate('/login')
-            }  
-        }
-        checkUserSession()
-    }, [])
-
 
     const handleAddTodo = async (e) => {
         e.preventDefault()
@@ -127,7 +118,7 @@ function HomePage() {
             {/* <div>
                 {loading && <p>loading..</p>}
             </div> */}
-            {!loading && (
+            {user && !loading && (
 
             <div className='container-main'>
                 
