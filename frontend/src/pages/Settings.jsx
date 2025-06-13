@@ -8,7 +8,7 @@ function Settings() {
 
     const navigate = useNavigate()
 
-    const [user, setUser] = useState("")
+    // const [user, setUser] = useState("")
 
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
@@ -68,23 +68,18 @@ function Settings() {
             setMessage("Failed to update password. Please check your current password.")
         }
     }
+    
+    const {documentUser, getUser, updatePassword, updateUser, loading, user, checkUserStatus} = useAuth()
 
     useEffect(() => {
-            const checkUserSession = async () => {
-                let session = null
-                try {
-                    session = await account.get()
-                    console.log(session)
-                    setUser(session.name)
-                    
-                } catch (error) {
-                    navigate('/login')
-                }  
-            }
-            checkUserSession()
-        }, [])
-    
-    const {documentUser, getUser, updatePassword, updateUser, loading} = useAuth()
+        const userCheck = async () => {
+            if (!await checkUserStatus()) {
+                navigate('/login')
+            } 
+        }
+        userCheck()
+    }, [])
+
     const {getTodos, todos} = useTodoStore()
 
     useEffect(() => {
@@ -94,7 +89,7 @@ function Settings() {
 
     return (
         <div className='container-main'>
-            {!loading && (
+            {user && !loading && (
 
             <div className='container-settings'>
                 <button onClick={() => navigate('/')}>Todos</button>
