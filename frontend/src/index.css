@@ -101,13 +101,6 @@ button, input {
   padding: 10px 10px;
 }
 
-/* .container-todos {
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-} */
-
-
 .text-box {
   border: green solid 3px;
   width: 80%;
@@ -158,14 +151,10 @@ h1 {
 /* Loing Page */
 
 .container-main-login {
-  border: 2px solid red;
- 
-}
-
-.container-main-login {
   position: absolute;
+  line-height: 40px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 2px solid red;
+  /* border: 2px solid red; */
 }

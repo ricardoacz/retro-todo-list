@@ -16,23 +16,58 @@ function HomePage() {
     const [todoValue, setTodoValue] = useState("")
     const [localTodos, setLocalTodos] = useState([])
 
-    const [colorMode, setColorMode] = useState(true)
-
-    const handleColorMode = () => {
-        console.log("updating color")
-        
-        if (colorMode) {
-            document.documentElement.style.setProperty('--dark-mode-color', '#242424')
-            document.documentElement.style.setProperty('--dark-mode-bg-color', 'rgb(215, 255, 215)')
-        } else {
-            document.documentElement.style.setProperty('--dark-mode-color', 'rgba(255, 255, 255, 0.87)')
-            document.documentElement.style.setProperty('--dark-mode-bg-color', '#242424')
-        }
-    }
+    const [colorMode, setColorMode] = useState(() => {
+        const saved = localStorage.getItem('colorMode')
+        return saved ? JSON.parse(saved) : false;
+    })
 
     useEffect(() => {
-        handleColorMode()
-    }, [])
+        
+        if (colorMode) {
+        document.documentElement.style.setProperty('--dark-mode-color', '#242424')
+        document.documentElement.style.setProperty('--dark-mode-bg-color', 'rgb(215, 255, 215)')
+        } else {
+        document.documentElement.style.setProperty('--dark-mode-color', 'rgba(255, 255, 255, 0.87)')
+        document.documentElement.style.setProperty('--dark-mode-bg-color', '#242424')
+        }
+
+        
+        localStorage.setItem('colorMode', JSON.stringify(colorMode))
+    }, [colorMode])
+
+    const toggleColorMode = () => {
+        setColorMode((prev) => !prev);
+    };
+
+    // const [colorMode, setColorMode] = useState(false)
+
+    // const handleColorMode = () => {
+    //     console.log("updating color")
+    //     if (!localStorage.getItem('colorMode')) {
+    //         setColorMode(true)
+    //        return localStorage.setItem('colorMode', JSON.stringify(true))
+    //     }
+
+    //     if (JSON.parse(localStorage.getItem('colorMode')) === true) {
+    //         setColorMode(true)
+    //     } else {
+    //         setColorMode(false)
+    //     }
+
+        
+
+    //     if (colorMode) {
+    //         document.documentElement.style.setProperty('--dark-mode-color', '#242424')
+    //         document.documentElement.style.setProperty('--dark-mode-bg-color', 'rgb(215, 255, 215)')
+    //     } else {
+    //         document.documentElement.style.setProperty('--dark-mode-color', 'rgba(255, 255, 255, 0.87)')
+    //         document.documentElement.style.setProperty('--dark-mode-bg-color', '#242424')
+    //     }
+    // }
+
+    // useEffect(() => {
+    //     handleColorMode()
+    // }, [])
 
     const {todos, getTodos, createTodo, updateTodo} = useTodoStore()
 
@@ -56,14 +91,14 @@ function HomePage() {
         getUser()
     }, [])
 
-    // useEffect(() => {
-    //     updateTodo()
-    // }, [updateTodo])
-
-    // console.log(userDocument)
-
     
     const navigate = useNavigate()
+
+    const handleLogout = async () => {
+        await logoutUser()
+        location.reload()
+        navigate('/')
+    }
 
     const textareaRef = useRef(null)
 
@@ -129,8 +164,8 @@ function HomePage() {
 
             <div className='container-main'>
                 
-                <button onClick={logoutUser}>Logout</button>
-                <button onClick={handleColorMode}>Light Mode</button>
+                <button onClick={handleLogout}>Logout</button>
+                <button onClick={toggleColorMode}>Light Mode</button>
                 <button onClick={() => navigate('/settings')}>Settings</button>
                 <button onClick={() => setTypingMode(!typingMode)}>Type|Todo</button>
                 <h1>{`Welcome ${documentUser?.nickname}`}</h1>

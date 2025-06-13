@@ -65,9 +65,11 @@ export const useAuth = create((set) => ({
     },
 
     logoutUser: async () => {
+        set({loading: true})
         await account.deleteSessions()
-        location.reload()
+        // location.reload()
         set({ user: null })
+        set({loading: false})
     },
 
     checkUserStatus: async () => {
