@@ -47,7 +47,6 @@ export const useAuth = create((set) => ({
                 body: JSON.stringify(userInfo)
             })
             const data = await response.json()
-            console.log("User document created")
         } catch (error) {
             console.error(error)
         }
@@ -87,12 +86,10 @@ export const useAuth = create((set) => ({
 
     getUser: async () => {
         set({loading: true})
-        console.log("Get user starts")
         const user = await account.get()
         try {
             const response = await fetch(`api/user?userId=${user.$id}`)
             const data = await response.json()
-            console.log(data.response)
             set((state) => ({documentUser: data.response}))
         } catch (error) {
             console.error(error)
@@ -102,7 +99,6 @@ export const useAuth = create((set) => ({
 
     updateUser: async (updatedUser) => {
         set({loading: true})
-        console.log("Update user starts")
         const user = await account.get()
         try {
             const response = await fetch(`api/user/${user.$id}`, {
@@ -111,7 +107,6 @@ export const useAuth = create((set) => ({
                 body: JSON.stringify(updatedUser)
             })
             const data = await response.json()
-            console.log(data.response)
             set((state) => ({documentUser: data.response}))
         } catch (error) {
             console.error(error)
@@ -121,13 +116,11 @@ export const useAuth = create((set) => ({
 
     updatePassword: async (newPass, oldPass) => {
         set({loading: true})
-        console.log("Start changing password")
         try {
             const result = await account.updatePassword(
             newPass,
             oldPass
         )
-        console.log("password updated")
         } catch (error) {
             console.error(error)
         }

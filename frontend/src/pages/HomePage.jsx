@@ -113,7 +113,6 @@ function HomePage() {
         const handleKeyDown = (e) => {
             if (e.key === '`') {
                 e.preventDefault() 
-                console.log(`you pressed ${e.key}`)
                 setTypingMode((prev) => !prev)
             }
         }

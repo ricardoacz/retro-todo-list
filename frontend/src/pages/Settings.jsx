@@ -32,16 +32,11 @@ function Settings() {
     const [oldPassword, setOldPassword] = useState('')
     const [newPassword, setNewPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
-    // const [error, setError] = useState('')
-    // const [success, setSuccess] = useState('')
     const [message, setMessage] = useState('')
 
     async function handleUpdatePassword () {
-        // setError('')
-        // setSuccess('')
+    
         setMessage("")
-
-        console.log(oldPassword, newPassword, confirmPassword)
 
         if (newPassword !== confirmPassword) {
             return setMessage("New password and confirmation do not match.")
@@ -54,8 +49,6 @@ function Settings() {
         if (oldPassword === newPassword) {
             return setMessage("New password must be different from old password.")
         }
-
-        console.log(newPassword, oldPassword)
 
         try {
             await updatePassword(newPassword, oldPassword)

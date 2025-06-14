@@ -6,13 +6,10 @@ export const useTodoStore = create((set) => ({
     todos: [],
 
     getTodos: async () => {
-        console.log("Get todos starts")
         const user = await account.get()
         try {
             const response = await fetch(`api/todo?userId=${user.$id}`)
             const data = await response.json()
-            console.log(data.response.documents)
-            // set((state) => ({todos: data.response.documents}))
             set((state) => {
                 const todoDocs = [...data.response.documents]
                 const sortByCreatedAt = todoDocs.sort((a,b) => {
@@ -29,7 +26,6 @@ export const useTodoStore = create((set) => ({
     },
 
     createTodo: async (newTodo) => {
-        console.log("Create todo starts", newTodo)
         const user = await account.get()
         newTodo.userId = user.$id
         try {
@@ -39,7 +35,6 @@ export const useTodoStore = create((set) => ({
                 body: JSON.stringify(newTodo)
             })
             const data = await response.json()
-            console.log(data.response)
             set((state) => ({todos: [...state.todos, data.response]}))
         } catch (error) {
             console.error(error)
@@ -47,7 +42,6 @@ export const useTodoStore = create((set) => ({
     },
 
     updateTodo: async (updatedTodo) => {
-        console.log("Update todo starts", updatedTodo)
         const user = await account.get()
         try {
             const response = await fetch(`api/todo/${updatedTodo.$id}`, {
@@ -56,7 +50,6 @@ export const useTodoStore = create((set) => ({
                 body: JSON.stringify(updatedTodo)
             })
             const data = await response.json()
-            console.log(data.response)
 
             set((state) => {
                 const fetchedUpdatedTodos = state.todos.map((todo) => 
@@ -77,14 +70,12 @@ export const useTodoStore = create((set) => ({
     },
 
     deleteTodo: async (deletedTodo) => {
-        console.log("Delete todo starts", deletedTodo)
         const user = await account.get()
         try {
             const response = await fetch(`api/todo/${deletedTodo.$id}`, {
                 method: "DELETE",
             })
             const data = await response.json()
-            console.log(data.response)
             set((state) => ({
                 todos: state.todos.filter((todo) => 
                     todo.$id !== deletedTodo.$id)

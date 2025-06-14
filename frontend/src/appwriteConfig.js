@@ -5,7 +5,6 @@ const devKey = import.meta.env.VITE_APPWRITE_DEV_KEY
 
 const client = new Client()
     .setProject(projectID)
-    .setDevKey(devKey);
 
 const account = new Account(client)
 
