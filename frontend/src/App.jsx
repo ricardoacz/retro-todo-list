@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 
-import HomePage from './pages/homePage'
-import Login from './pages/login'
-import Register from './pages/register'
+import HomePage from './pages/HomePage'
+import Login from './pages/Login'
+import Register from './pages/Register'
 import Settings from './pages/Settings'
 
 import LayoutComponent from './components/LayoutComponent'
