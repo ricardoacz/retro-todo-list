@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTodoStore } from '../global_state/todoStore'
 
-function Todo({todo, updateLocalTodos}) {
+function Todo({todo, updateLocalTodos, setTypingMode, typingMode, editingTodo, setEditingTodo, previousTodo, setPreviousTodo, todoValue, setTodoValue}) {
 
     const {updateTodo, deleteTodo} = useTodoStore()
 
@@ -17,13 +17,20 @@ function Todo({todo, updateLocalTodos}) {
         
     }
 
+    const handleEditTodoMode = async () => {
+        setTodoValue(todo.todo)
+        setEditingTodo(true)
+        setTypingMode(true)
+        setPreviousTodo(todo)
+    }
+
     const handleDeleteTodo = async () => {
         deleteTodo(todo)
     }
     
 
     return (
-        <div className='container-todo'>
+        <div className='container-todo' onDoubleClick={handleEditTodoMode}>
             <p>
             
             <span onClick={handleMarkTodoDone}>{!todo.completed ? '[ ] ' : '[✓] '}</span>

@@ -12,6 +12,8 @@ function HomePage() {
 
     const [view, setView] = useState(false)
     const [typingMode, setTypingMode] = useState(false)
+    const [editingTodo, setEditingTodo] = useState(false)
+    const [previousTodo, setPreviousTodo] = useState({})
     const [todoValue, setTodoValue] = useState("")
 
     // states for toggle btns
@@ -66,6 +68,15 @@ function HomePage() {
 
     const handleAddTodo = async (e) => {
         e.preventDefault()
+        if (editingTodo) {
+            console.log(editingTodo, previousTodo)
+            const updatedTodo = {...previousTodo, todo: todoValue}
+            updateTodo(updatedTodo)
+            setTodoValue("")
+            setTypingMode(false)
+            setEditingTodo(false)
+            return setPreviousTodo({})
+        }
         const newTodo = {
             todo: todoValue
         }
@@ -154,7 +165,7 @@ function HomePage() {
                         (
                         <div> 
                             {todos.filter((todo) => !todo.completed).map((todo, index) => (
-                                <Todo key={index} todo={todo} updateLocalTodos={updateLocalTodos} />
+                                <Todo key={index} todo={todo} updateLocalTodos={updateLocalTodos} typingMode={typingMode} setTypingMode={setTypingMode} editingTodo={editingTodo} setEditingTodo={setEditingTodo} previousTodo={previousTodo} setPreviousTodo={setPreviousTodo} todoValue={todoValue} setTodoValue={setTodoValue} />
                             ))}
                         </div>
                         )
@@ -162,7 +173,7 @@ function HomePage() {
                         (
                         <div> 
                             {todos.filter((todo) => todo.completed).map((todo, index) => (
-                                <Todo key={index} todo={todo} />
+                                <Todo key={index} todo={todo} typingMode={typingMode} setTypingMode={setTypingMode} editingTodo={editingTodo} setEditingTodo={setEditingTodo} previousTodo={previousTodo} setPreviousTodo={setPreviousTodo} todoValue={todoValue} setTodoValue={setTodoValue}/>
                             ))}
                         </div>
                         )}
