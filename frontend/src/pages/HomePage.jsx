@@ -155,6 +155,7 @@ function HomePage() {
                 <button onClick={() => setTypingMode(!typingMode)}>{typeViewName}</button>
                 <h1>{`Welcome ${documentUser?.nickname}`}</h1>
                 <p className='instructions'>Press ` to toggle between typing and todo mode. <span className='hint' onClick={() => alert("It's the key on the left side of 1. If you are on a phone, press the typing button")}>Hint.</span></p>
+                <p className='instructions'>Double-click (desktop) or double-tap (mobile) a todo to edit it.</p>
 
                 <button onClick={handleTodoView}>{todoViewName}</button>
 
