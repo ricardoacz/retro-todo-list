@@ -4,7 +4,7 @@
 
 Built with **React**, **Node.js**, **Express**, and **Appwrite**.
 
-🚀 <a href="https://rtodo-temp23-beta.onrender.com" target="_blank"><strong>Live Demo →</strong></a>
+🚀 **[Live Demo →](https://rtodo-temp23-beta.onrender.com)**
 
 ![demo-todo-app](./assets/demo-todo-app.gif)
 
