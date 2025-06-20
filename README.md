@@ -26,9 +26,9 @@ Built with **React**, **Node.js**, **Express**, and **Appwrite**.
 3. Install and build:
 
    ```bash
-   npm install
    npm run build
    npm run start
+   ```
 
 4. Visit `http://localhost:5000/login`
 
