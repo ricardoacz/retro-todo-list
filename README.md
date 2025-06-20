@@ -4,7 +4,7 @@
 
 Built with **React**, **Node.js**, **Express**, and **Appwrite**.
 
-🚀 **[Live Demo →](https://rtodo-temp23-beta.onrender.com)**
+🚀 <a href="https://rtodo-temp23-beta.onrender.com" target="_blank"><strong>Live Demo →</strong></a>
 
 ![demo-todo-app](./assets/demo-todo-app.gif)
 
@@ -56,7 +56,7 @@ Built with **React**, **Node.js**, **Express**, and **Appwrite**.
 - Database & Auth: Appwrite
 
 ## 🛠️ Planned Improvements
-- 📱 Responsive layout for mobile screens
-- ✉️ Magic email link login
-- 🔐 Forgot password recovery
-- 🗑️ Option to delete user account
+- Responsive layout for mobile screens
+- Magic email link login
+- Forgot password recovery
+- Option to delete user account
