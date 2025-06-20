@@ -1,6 +1,6 @@
 # 🕹️ Retro Todo App
 
-**Retro Todo App** is a nostalgic way to get things done — a full stack to-do application inspired by the Casio digital diaries of the '80s and '90s.
+**Retro Todo App** is a nostalgic way to get things done. A full stack to-do application inspired by the Casio digital diaries of the '80s and '90s.
 
 Built with **React**, **Node.js**, **Express**, and **Appwrite**.
 
